@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('register', [AuthController::class, 'showRegisterForm'])->name('register');
+Route::post('register', [AuthController::class, 'register']);
+Route::get('login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('login', [AuthController::class, 'login']);
+Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/',[\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('/account',[\App\Http\Controllers\HomeController::class, 'account'])->name('account');
+    Route::get('/mission',[\App\Http\Controllers\HomeController::class, 'mission'])->name('mission');
+    Route::get('/banking',[\App\Http\Controllers\HomeController::class, 'banking'])->name('banking');
+    Route::get('/recharge',[\App\Http\Controllers\HomeController::class, 'recharge'])->name('recharge');
+    Route::get('/moneyout',[\App\Http\Controllers\HomeController::class, 'moneyout'])->name('moneyout');
+    Route::get('/order',[\App\Http\Controllers\HomeController::class, 'order'])->name('order');
+    Route::post('/update-user', [UserController::class, 'update'])->name('user.update');
+    Route::post('recharge',[UserController::class,'historyPayment']);
+    Route::get('/rechargeoption',[\App\Http\Controllers\HomeController::class,'rechargeoption'])->name('rechargeoption');
 });
