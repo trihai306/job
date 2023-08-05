@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Order;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -36,11 +37,20 @@ class HomeController extends Controller
       return view('moneyout');
    }
 
-   public function order(){
-       return view('order');
+   public function order(Request $request)
+   {
+      $user = $request->user();
+      $orders_pending = Order::query()->where('user_id', $user->id)->with(['product' => function ($q) {
+         $q->with('level');
+      }])->where('status', 1)->get();
+      $orders_done = Order::query()->where('user_id', $user->id)->with(['product' => function ($q) {
+         $q->with('level');
+      }])->where('status', 0)->get();
+      return view('order', compact('orders_pending', 'orders_done'));
    }
 
-   public function rechargeoption(){
-       return view('rechargeoption');
+   public function rechargeoption()
+   {
+      return view('rechargeoption');
    }
 }

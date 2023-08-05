@@ -41,7 +41,8 @@
 
                         <div style="padding-left: 8px;">
                             <p>Nhiệm vụ</p>
-                            <p style="font-size: 16px; font-weight: bold; padding-top:5px">{{Auth::user()->level->price}}%</p>
+                            <p style="font-size: 16px; font-weight: bold; padding-top:5px">
+                                {{Auth::user()->level->price}}%</p>
                         </div>
 
                         <div style=" margin-top: 20px;">
@@ -192,9 +193,11 @@
     </div>
 </body>
 <!-- jQuery CDN -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM="
+    crossorigin="anonymous"></script>
 <!-- SweetAlert2 JS -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.2.2/dist/sweetalert2.min.js"></script>
+<script src="{{ asset('assets/js/common.js') }}"></script>
 <script>
     $(document).ready(function() {
         $('.mission-button button').on('click', function() {
@@ -209,14 +212,31 @@
                 cancelButtonText: 'Không, hủy bỏ!'
             }).then((result) => {
                 if (result.isConfirmed) {
+                    callApi('/get-mission', 'GET', {}, null,
+                        function(res) {
+                            Swal.fire(
+                                'Hoàn thành!',
+                                'Bạn đã lấy đơn hàng',
+                                'success'
+                            )
+                        }, function(res) {
+                            Swal.fire(
+                                'Lôi!',
+                                'Không mong muốn!',
+                                'error'
+                            )
+                        }
+                    )
+                } else {
                     Swal.fire(
-                        'Hoàn thành!',
-                        'Bạn đã lấy đơn hàng',
-                        'success'
+                        'Hủy bỏ!',
+                        'Bạn đã hủy bỏ lấy đơn hàng',
+                        'error'
                     )
                 }
             });
         });
     });
 </script>
+
 </html>

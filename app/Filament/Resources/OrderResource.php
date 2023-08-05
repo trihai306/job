@@ -76,7 +76,12 @@ class OrderResource extends Resource
                             $totalPrice = $price * $level->price;
                             $order->update(['status' => 0]);
                             // plus money to user
-                            $user->update(['money' => $user->money + $totalPrice]);
+                            $user->update(
+                                [
+                                    'money' => $user->money + $totalPrice,
+                                    'freezing_money' => $user->freezing_money - $totalPrice
+                                ]
+                            );
                         })
                         ->disabled(function (Order $order) {
                             return $order->status === 1;
@@ -115,21 +120,5 @@ class OrderResource extends Resource
             'create' => Pages\CreateOrder::route('/create'),
             'edit' => Pages\EditOrder::route('/{record}/edit'),
         ];
-    }
-
-    protected function getTableActions(): array
-    {
-        return [
-            Tables\Actions\ActionGroup::make([
-                Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
-            ]),
-        ];
-    }
-
-    public function isTableRecordSelectable(): ?\Closure
-    {
-        return fn (Model $record): bool => $record->status === 0;
     }
 }
