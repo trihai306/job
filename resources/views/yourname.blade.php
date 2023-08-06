@@ -6,6 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Của tôi</title>
     <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
+    <style>
+        .text-white {
+            color: white;
+        }
+    </style>
 </head>
 
 <body>
@@ -77,7 +82,7 @@
                 <div class="trungtapdichvu-item aaa">
                       <div>
                        <img src="{{asset('assets/img/items.png')}}" alt="">
-                       <p>Nhật kí nạp tiền</p>
+                       <a href="{{ route('history-deposit') }}" class="text-white">Nhật kí nạp tiền</a>
                       </div>
 
                       <div>
@@ -87,7 +92,7 @@
                 <div class="trungtapdichvu-item">
                     <div>
                      <img src="{{asset('assets/img/items.png')}}" alt="">
-                     <p>Hồ sơ rút tiền</p>
+                     <a href="{{ route('history-withdraw') }}" class="text-white">Hồ sơ rút tiền</a>
                     </div>
 
                     <div>

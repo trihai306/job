@@ -34,4 +34,8 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/update-user', [UserController::class, 'update'])->name('user.update');
     Route::post('recharge', [UserController::class, 'historyPayment']);
     Route::get('/rechargeoption', [\App\Http\Controllers\HomeController::class, 'rechargeoption'])->name('rechargeoption');
+    # deposit money
+    Route::get('/history-deposit', [\App\Http\Controllers\HistoryPayment::class, 'deposit'])->name('history-deposit');
+    # withdraw money
+    Route::get('/history-withdraw', [\App\Http\Controllers\HistoryPayment::class, 'withDraw'])->name('history-withdraw');
 });

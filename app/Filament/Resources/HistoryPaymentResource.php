@@ -37,8 +37,8 @@ class HistoryPaymentResource extends Resource
                     ->noSearchResultsMessage('Not data')
                     ->options($options = function () {
                         return [
-                            '1' => 'withdraw',
-                            '2' => 'deposit',
+                            '0' => 'withdraw',
+                            '1' => 'deposit',
                         ];
                     })
                     ->placeholder('Select a type'),
@@ -46,8 +46,8 @@ class HistoryPaymentResource extends Resource
                     ->noSearchResultsMessage('Not data')
                     ->options($options = function () {
                         return [
-                            '1' => 'accept',
-                            '2' => 'pending',
+                            '0' => 'accept',
+                            '1' => 'pending',
                         ];
                     })
                     ->placeholder('Select a status'),
