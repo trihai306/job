@@ -90,7 +90,6 @@ class HistoryPaymentResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     Tables\Actions\Action::make('Approve')
                         ->action(function (HistoryPayment $history) {
@@ -121,7 +120,6 @@ class HistoryPaymentResource extends Resource
                         ->modalSubheading('Are you sure you want to approve this withdraw?')
                         ->modalButton('Yes, Approve')
                         ->icon('heroicon-o-rectangle-stack')
-                ]),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

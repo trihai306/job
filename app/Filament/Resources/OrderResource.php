@@ -50,7 +50,10 @@ class OrderResource extends Resource
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('status')
-                    ->searchable(),
+                    ->searchable()
+                    ->formatStateUsing(function (Order $order) {
+                        return $order->status == 0 ? 'accept' : 'pending';
+                    }),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -65,7 +68,6 @@ class OrderResource extends Resource
             ])
             // how to use action group
             ->actions([
-                Tables\Actions\ActionGroup::make([
                     Tables\Actions\EditAction::make(),
                     // un disabled this to use bulk action
                     Tables\Actions\Action::make('Approve')
@@ -84,7 +86,7 @@ class OrderResource extends Resource
                             );
                         })
                         ->disabled(function (Order $order) {
-                            return $order->status === 1;
+                            return $order->status == 0;
                         })
                         ->requiresConfirmation()
                         ->modalHeading('Approve Orders')
@@ -92,7 +94,6 @@ class OrderResource extends Resource
                         ->modalButton('Yes, Approve')
                         ->icon('heroicon-o-rectangle-stack')
 
-                ]),
             ])
 
             ->bulkActions([
