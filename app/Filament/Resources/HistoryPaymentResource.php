@@ -64,7 +64,10 @@ class HistoryPaymentResource extends Resource
                     ->sortable(),
                 Tables\Columns\TextColumn::make('money')
                     ->searchable()
-                    ->sortable(),
+                    ->sortable()
+                    ->formatStateUsing(function (HistoryPayment $history) {
+                        return number_format($history->money, 0, ',', '.');
+                    }),
                 Tables\Columns\TextColumn::make('type')
                     ->searchable()
                     ->sortable()

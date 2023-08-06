@@ -21,6 +21,7 @@ class LevelsTableSeeder extends Seeder
                 'name' => 'Level ' . $level,
                 'price' => $level,
                 'image' => $faker->imageUrl(600, 600, 'business', true, 'levels'),
+                'limit' => 10,
                 'created_at' => \Carbon\Carbon::now(),
                 'updated_at' => \Carbon\Carbon::now(),
             ]);

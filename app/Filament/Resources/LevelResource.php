@@ -2,10 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
+use App\Filament\Resources\LevelResource\Pages;
+use App\Filament\Resources\LevelResource\RelationManagers;
 use App\Models\Level;
-use App\Models\Product;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -14,9 +13,9 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class ProductResource extends Resource
+class LevelResource extends Resource
 {
-    protected static ?string $model = Product::class;
+    protected static ?string $model = Level::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
@@ -29,31 +28,16 @@ class ProductResource extends Resource
                     ->maxLength(255),
                 Forms\Components\TextInput::make('price')
                     ->required()
-                    ->maxLength(255)
-                    ->formatStateUsing(function (Product $history) {
-                        return number_format($history->price, 0, ',', '.');
-                    }),
-                Forms\Components\TextInput::make('status')
-                    ->required()
-                    ->maxLength(255)
-                    ->default(0),
+                    ->numeric(),
                 Forms\Components\FileUpload::make('image')
                     ->acceptedFileTypes($types = ['image/*']) // Limit the type of files that can be uploaded using an array of mime types.
                     ->image() // Allow only images to be uploaded.
                     ->uploadButtonPosition($position = 'right') // Set the position of the upload button.
                     ->uploadProgressIndicatorPosition($position = 'right') // Set the position of the upload progress indicator.
                     ->visibility($visibility = 'public'), // Set the visibility of uploaded files.
-                Forms\Components\Textarea::make('description')
+                Forms\Components\TextInput::make('limit')
                     ->required()
-                    ->autocomplete($autocomplete = 'on') // Set up autocomplete for the field.
-                    ->cols(10) // The number of columns wide the textarea is.
-                    ->rows(10),
-                Forms\Components\Select::make('level_id')
-                    ->noSearchResultsMessage('Not data') // Set the message for when there are no option search results. It supports localization strings.
-                    ->options($options = function () {
-                        return Level::all()->pluck('name', 'id');
-                    })
-                    ->placeholder('Select a level')
+                    ->numeric(),
 
             ]);
     }
@@ -68,20 +52,15 @@ class ProductResource extends Resource
                 Tables\Columns\TextColumn::make('price')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('status')
+                Tables\Columns\ImageColumn::make('image')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                Tables\Columns\TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                Tables\Columns\TextColumn::make('limit')
+                    ->searchable()
+                    ->sortable(),
             ])
             ->filters([
-
+                //
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -106,9 +85,9 @@ class ProductResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListProducts::route('/'),
-            'create' => Pages\CreateProduct::route('/create'),
-            'edit' => Pages\EditProduct::route('/{record}/edit'),
+            'index' => Pages\ListLevels::route('/'),
+            'create' => Pages\CreateLevel::route('/create'),
+            'edit' => Pages\EditLevel::route('/{record}/edit'),
         ];
     }
 }

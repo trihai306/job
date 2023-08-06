@@ -18,6 +18,7 @@ class Level extends Model
         'name',
         'price',
         'image',
+        'limit'
     ];
 
     /**

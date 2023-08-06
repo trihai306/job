@@ -71,16 +71,23 @@ class MissionController extends Controller
         try {
             $user = $request->user();
             $productOfLevels = Product::where('level_id', $user->level_id)->get();
+            $level = Level::query()->where('id', $user->level_id)->first();
+            $orderOfUser = Order::query()->where('user_id', $user->id)->count();
+            if ($orderOfUser >= $level->limit) {
+                return $this->response(200, [], 'Đơn hàng của bạn đã đạt giới hạn');
+            }
             foreach ($productOfLevels as $productOfLevel) {
-                // create order of use with product id
-                Order::query()->create([
-                    'user_id' => $user->id,
-                    'product_id' => $productOfLevel->id,
-                    'status' => 2,
-                ]);
-                User::query()->where('id', $user->id)->update([
-                    'freezing_money' => $user->freezing_money + $productOfLevel->price,
-                ]);
+                $orderOfUser = Order::query()->where('user_id', $user->id)->where('status', 2)->count();
+                if ($orderOfUser < $level->limit) {
+                    Order::query()->create([
+                        'user_id' => $user->id,
+                        'product_id' => $productOfLevel->id,
+                        'status' => 2,
+                    ]);
+                    User::query()->where('id', $user->id)->update([
+                        'freezing_money' => $user->freezing_money + $productOfLevel->price,
+                    ]);
+                }
             }
             return $this->response(200, $productOfLevels, 'Get mission success');
         } catch (\Exception $e) {
