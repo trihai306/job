@@ -59,4 +59,16 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Level::class, 'level_id');
     }
+
+    // handel create user
+    protected static function boot()
+    {
+        static::created(function ($model) {
+            # get config money reward
+            $config = Config::find(1);
+            $model->money = $config->money_reward;
+            $model->save();
+        });
+        parent::boot();
+    }
 }

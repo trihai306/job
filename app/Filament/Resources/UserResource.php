@@ -18,6 +18,9 @@ class UserResource extends Resource
 
     public static function form(Form $form): Form
     {
+        // check form create or edit
+        $isCreate = request()->route()->uri() == 'admin/users/create';
+
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
@@ -54,9 +57,11 @@ class UserResource extends Resource
                 Forms\Components\TextInput::make('bank_id')
                     ->maxLength(255),
                 Forms\Components\DateTimePicker::make('email_verified_at'),
+
                 Forms\Components\TextInput::make('password')
                     ->password()
-                    ->required()
+                    # required true on form create and false on form update
+                    ->required($isCreate)
                     ->maxLength(255),
             ]);
     }
@@ -101,7 +106,8 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-
+                Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -112,14 +118,14 @@ class UserResource extends Resource
                 Tables\Actions\CreateAction::make(),
             ]);
     }
-    
+
     public static function getRelations(): array
     {
         return [
             //
         ];
     }
-    
+
     public static function getPages(): array
     {
         return [
@@ -127,5 +133,5 @@ class UserResource extends Resource
             'create' => Pages\CreateUser::route('/create'),
             'edit' => Pages\EditUser::route('/{record}/edit'),
         ];
-    }    
+    }
 }

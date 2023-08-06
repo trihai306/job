@@ -17,7 +17,7 @@ return new class extends Migration {
             $table->string('code')->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('avatar')->nullable();
-            $table->string('money')->default(0);
+            $table->string('money');
             $table->string('freezing_money')->default(0);
             $table->integer('level_id')->nullable()->default(0);
             $table->string('status')->default(0);
