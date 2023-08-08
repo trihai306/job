@@ -9,6 +9,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
     <div class="moneyout">
         <div class="moneyout-container recharge-contain">
             <div class="recharge-contain-flex">

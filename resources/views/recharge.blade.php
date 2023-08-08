@@ -14,6 +14,8 @@
     </style>
 </head>
 <body>
+@include('components.lang')
+
 <div class="recharge-option">
     <div class="recharge-contain">
         <form action="">

@@ -7,13 +7,15 @@
     <link rel="stylesheet" href="{{asset('assets/css/login.css')}}">
 </head>
 <body>
+@include('components.lang')
+
     <div class="recharge-option">
         <div class="recharge-contain">
                    <div class="recharge-contain-flex">
                     <div id="home-luachon" class="recharge-contain-flex-img">
                         <img src="{{asset('assets/img/muiten.png')}}" alt="">
                        </div>
-    
+
                        <div>
                         Chọn phương thức nạp tiền
                        </div>
@@ -30,7 +32,7 @@
             window.location.href = 'recharge.html';
         };
 
-        
+
         document.getElementById('home-luachon').onclick = function() {
             window.location.href = 'home.html';
         };

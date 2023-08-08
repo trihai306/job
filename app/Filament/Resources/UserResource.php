@@ -9,12 +9,16 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\View\View;
+use App\Filament\Resources\UserResource\Pages\Settings;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+
+//    public static ?string $label = 'Users';
 
     public static function form(Form $form): Form
     {

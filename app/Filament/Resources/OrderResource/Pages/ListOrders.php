@@ -5,6 +5,7 @@ namespace App\Filament\Resources\OrderResource\Pages;
 use App\Filament\Resources\OrderResource;
 use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
+use Illuminate\View\View;
 
 class ListOrders extends ListRecords
 {
@@ -15,5 +16,10 @@ class ListOrders extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+    public function getFooter(): ?View
+    {
+        return view('filament.pages.settings.custom-header');
     }
 }

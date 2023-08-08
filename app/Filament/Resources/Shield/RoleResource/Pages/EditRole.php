@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class EditRole extends EditRecord
 {
@@ -43,5 +44,10 @@ class EditRole extends EditRecord
         });
 
         $this->record->syncPermissions($permissionModels);
+    }
+
+    public function getFooter(): ?View
+    {
+        return view('filament.pages.settings.custom-header');
     }
 }

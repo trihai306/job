@@ -10,6 +10,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
 <div class="mission">
     <div class="account mission-contaner">
         <div style="margin-top: 0 ; height: 430px;" class="conts">

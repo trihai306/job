@@ -13,10 +13,14 @@
         .text-white {
             color: white;
         }
+        .skiptranslate {
+            background: #000;
+        }
     </style>
 </head>
 
 <body>
+@include('components.lang')
 <div class="yourname">
     <div class="yourname-container">
         <div class="yourname-fist">
@@ -118,5 +122,11 @@
         </div>
     </div>
 </div>
+<style>
+    .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+        display: none !important;
+    }
+</style>
+
 </body>
 </html>

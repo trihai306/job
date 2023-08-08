@@ -11,6 +11,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
     <div class="order">
         <div style="min-height: 100vh;" class="order-contaner">
             <div class="order-text">

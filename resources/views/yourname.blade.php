@@ -14,6 +14,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
     <div class="yourname">
         <div class="yourname-container">
             <div class="yourname-fist">

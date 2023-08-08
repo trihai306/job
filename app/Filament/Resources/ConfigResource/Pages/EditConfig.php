@@ -5,6 +5,7 @@ namespace App\Filament\Resources\ConfigResource\Pages;
 use App\Filament\Resources\ConfigResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\View\View;
 
 class EditConfig extends EditRecord
 {
@@ -15,5 +16,10 @@ class EditConfig extends EditRecord
         return [
             Actions\DeleteAction::make(),
         ];
+    }
+
+    public function getFooter(): ?View
+    {
+        return view('filament.pages.settings.custom-header');
     }
 }

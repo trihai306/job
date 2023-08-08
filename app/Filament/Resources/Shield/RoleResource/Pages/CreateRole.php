@@ -8,6 +8,7 @@ use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
 
 class CreateRole extends CreateRecord
 {
@@ -36,5 +37,10 @@ class CreateRole extends CreateRecord
         });
 
         $this->record->syncPermissions($permissionModels);
+    }
+
+    public function getFooter(): ?View
+    {
+        return view('filament.pages.settings.custom-header');
     }
 }

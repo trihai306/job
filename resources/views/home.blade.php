@@ -11,6 +11,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
     <div class="slider">
         <div class="slides">
             <input type="radio" name="radio-btn" id="radio1">

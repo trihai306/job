@@ -22,6 +22,8 @@
 </head>
 
 <body>
+@include('components.lang')
+
 <div id="app">
     <div class="pr-box">
         <div class="login-box">
